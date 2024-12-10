@@ -1,4 +1,4 @@
-import mysql from 'mysql2'
+import mysql from 'mysql2/promise'
 
 import env from 'dotenv'
 
@@ -11,7 +11,16 @@ const Connect = mysql.createPool({
     password: process.env.Mysql_pass,
     database: process.env.Mysql_database
 
-}).promise()
+})
+
+
+// Connect.connect((err)=>{
+//     if(err){
+//         console.error("Error connecting to MySQL:", err);
+//         return;
+//       }
+//       console.log("Connected to MySQL");
+// })
 
 
 

@@ -1,6 +1,6 @@
 import express from 'express'
-import db from  './src/config/db.js'
-import router from  './src/routes/router'
+import Connect from  './src/config/db.js'
+import router from  './src/Router/router.js'
 import cors from 'cors'
 
 
@@ -11,10 +11,21 @@ app.use(cors())
 app.get('/',(req,res)=>{
     res.send("hello world!")
 })
-db()
 
-// app.use('/api',router)
 
+app.use('/api',router)
+
+
+app.use((err,req,res,next)=>{
+    console.log(err.message)
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal server Error';
+    return res.status(statusCode).json({
+        success : false,
+        statusCode,
+        message
+    })
+})
 
 
 
